@@ -1,0 +1,7 @@
+streamlit
+langchain
+pyngrok
+openai
+pandas
+matplotlib
+pydantic
