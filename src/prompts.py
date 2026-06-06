@@ -83,6 +83,9 @@ def build_prompt(
         metadata["states"]
     )
 
+    print("min:",min(metadata['years']))
+    print("max:",max(metadata['years']))
+
     years_section = (
         f"{min(metadata['years'])}"
         f" - "
