@@ -9,117 +9,117 @@ class EvaluationRunner:
     against the pipeline.
     """
 
- def __init__(self,pipeline):
+    def __init__(self,pipeline):
 
-        self.pipeline = pipeline
+            self.pipeline = pipeline
 
- def run(self,question_file):
+    def run(self,question_file):
 
-        with open(
-            question_file,
-            "r",
-            encoding="utf-8"
-        ) as file:
+            with open(
+                question_file,
+                "r",
+                encoding="utf-8"
+            ) as file:
 
-            questions = json.load(
-                file
-            )
-
-        results = []
-
-        for item in questions:
-
-            question = item[
-                "question"
-            ]
-
-            response = (
-
-                self.pipeline.run_safe(
-                    question
-                )
-            )
-
-            if response["success"]:
-
-                answer = (
-                    response["data"]
-                    .answer
+                questions = json.load(
+                    file
                 )
 
-                status = "PASS"
+            results = []
 
-            else:
+            for item in questions:
 
-                answer = (
-                    response["error"]
+                question = item[
+                    "question"
+                ]
+
+                response = (
+
+                    self.pipeline.run_safe(
+                        question
+                    )
                 )
 
-                status = "FAIL"
+                if response["success"]:
 
-            results.append({
+                    answer = (
+                        response["data"]
+                        .answer
+                    )
 
-                "question":
-                question,
+                    status = "PASS"
 
-                "status":
-                status,
+                else:
 
-                "response":
-                answer
-            })
+                    answer = (
+                        response["error"]
+                    )
 
-        df = pd.DataFrame(
-            results
-        )
+                    status = "FAIL"
 
-        return df
+                results.append({
 
- def save_report(self,dataframe,output_file="evaluation_report.csv"):
+                    "question":
+                    question,
 
-        dataframe.to_csv(
-            output_file,
-            index=False
-        )
+                    "status":
+                    status,
 
-        return output_file
+                    "response":
+                    answer
+                })
 
- def summary(self,dataframe):
-
-        total = len(
-            dataframe
-        )
-
-        passed = len(
-
-            dataframe[
-                dataframe["status"]
-                == "PASS"
-            ]
-        )
-
-        failed = len(
-
-            dataframe[
-                dataframe["status"]
-                == "FAIL"
-            ]
-        )
-
-        return {
-
-            "total":
-            total,
-
-            "passed":
-            passed,
-
-            "failed":
-            failed,
-
-            "success_rate":
-            round(
-                (passed / total) * 100,
-                2
+            df = pd.DataFrame(
+                results
             )
-        }
+
+            return df
+
+    def save_report(self,dataframe,output_file="evaluation_report.csv"):
+
+            dataframe.to_csv(
+                output_file,
+                index=False
+            )
+
+            return output_file
+
+    def summary(self,dataframe):
+
+            total = len(
+                dataframe
+            )
+
+            passed = len(
+
+                dataframe[
+                    dataframe["status"]
+                    == "PASS"
+                ]
+            )
+
+            failed = len(
+
+                dataframe[
+                    dataframe["status"]
+                    == "FAIL"
+                ]
+            )
+
+            return {
+
+                "total":
+                total,
+
+                "passed":
+                passed,
+
+                "failed":
+                failed,
+
+                "success_rate":
+                round(
+                    (passed / total) * 100,
+                    2
+                )
+            }
