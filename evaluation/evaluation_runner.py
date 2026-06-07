@@ -2,6 +2,7 @@ import json
 
 import pandas as pd
 
+
 class EvaluationRunner:
     """
     Runs a predefined evaluation suite
@@ -12,6 +13,7 @@ class EvaluationRunner:
         self,
         pipeline
     ):
+
         self.pipeline = pipeline
 
     def run(
@@ -38,6 +40,7 @@ class EvaluationRunner:
             ]
 
             response = (
+
                 self.pipeline.run_safe(
                     question
                 )
@@ -72,11 +75,11 @@ class EvaluationRunner:
                 answer
             })
 
-        dataframe = pd.DataFrame(
+        df = pd.DataFrame(
             results
         )
 
-        return dataframe
+        return df
 
     def save_report(
         self,
@@ -116,15 +119,6 @@ class EvaluationRunner:
             ]
         )
 
-        success_rate = 0
-
-        if total > 0:
-
-            success_rate = round(
-                (passed / total) * 100,
-                2
-            )
-
         return {
 
             "total":
@@ -137,5 +131,8 @@ class EvaluationRunner:
             failed,
 
             "success_rate":
-            success_rate
+            round(
+                (passed / total) * 100,
+                2
+            )
         }
