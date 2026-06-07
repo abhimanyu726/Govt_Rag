@@ -28,10 +28,7 @@ class SchemaManager:
     }
     """
 
-    def __init__(
-        self,
-        dataframe
-    ):
+    def __init__(self,dataframe):
 
         self.df = dataframe
 
@@ -41,9 +38,7 @@ class SchemaManager:
 
         self._build_schema()
 
-    def _build_schema(
-        self
-    ):
+    def _build_schema(self):
 
         pattern = re.compile(
             r"^(.*?)\s+(AREA|PRODUCTION|YIELD)\s*(\(.*\))?$"
@@ -95,10 +90,7 @@ class SchemaManager:
                     .replace(")", "")
                 )
 
-    def crop_exists(
-        self,
-        crop: str
-    ) -> bool:
+    def crop_exists(self,crop: str) -> bool:
 
         return (
             crop
@@ -106,11 +98,7 @@ class SchemaManager:
             self.crop_metric_map
         )
 
-    def metric_exists(
-        self,
-        crop: str,
-        metric: str
-    ) -> bool:
+    def metric_exists(self,crop: str,metric: str) -> bool:
 
         if crop not in self.crop_metric_map:
 
@@ -122,11 +110,7 @@ class SchemaManager:
             self.crop_metric_map[crop]
         )
 
-    def get_column(
-        self,
-        crop: str,
-        metric: str
-    ):
+    def get_column(self,crop: str,metric: str):
 
         return (
 
@@ -137,11 +121,7 @@ class SchemaManager:
             .get(metric)
         )
 
-    def get_unit(
-        self,
-        crop: str,
-        metric: str
-    ):
+    def get_unit(self,crop: str,metric: str):
 
         column = self.get_column(
             crop,
@@ -156,9 +136,7 @@ class SchemaManager:
             column
         )
 
-    def get_states(
-        self
-    ):
+    def get_states(self):
 
         return sorted(
 
@@ -171,9 +149,7 @@ class SchemaManager:
             .tolist()
         )
 
-    def get_districts(
-        self
-    ):
+    def get_districts(self):
 
         return sorted(
 
@@ -186,9 +162,7 @@ class SchemaManager:
             .tolist()
         )
 
-    def get_years(
-        self
-    ):
+    def get_years(self):
 
         return sorted(
 
@@ -201,18 +175,13 @@ class SchemaManager:
             .tolist()
         )
 
-    def get_crops(
-        self
-    ):
+    def get_crops(self):
 
         return sorted(
             self.crop_metric_map.keys()
         )
 
-    def get_crop_metrics(
-        self,
-        crop: str
-    ):
+    def get_crop_metrics(self,crop: str):
 
         return list(
 
@@ -223,9 +192,7 @@ class SchemaManager:
             .keys()
         )
 
-    def metadata(
-        self
-    ):
+    def metadata(self):
 
         return {
 

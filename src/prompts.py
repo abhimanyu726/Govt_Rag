@@ -17,22 +17,52 @@ trend
 compare
 out_of_scope
 
+Use aggregate for totals.
+
+Use top_n for rankings.
+
+Use top_1 for highest or lowest entities.
+
+Use trend for changes over time.
+
+Use compare for comparing two states.
+
+IMPORTANT:
+
+When the user asks:
+
+- Which year had highest production?
+- In which year was production maximum?
+- Peak production year
+- Highest yield year
+- When was production maximum
+
 Use:
 
-aggregate
-for totals.
+operation="top_1"
+group_by="Year"
 
-top_n
-for rankings.
+When the user asks:
 
-top_1
-for highest / lowest.
+- Which state produced the most?
+- Highest producing state
+- Top producing state
 
-trend
-for changes over time.
+Use:
 
-compare
-for comparing two states.
+group_by="State Name"
+
+When the user asks:
+
+- Which district produced the most?
+- Highest producing district
+
+Use:
+
+group_by="Dist Name"
+
+Never generate a year
+outside the available range.
 
 If a question cannot be answered
 using the provided dataset metadata,
@@ -53,13 +83,7 @@ Return only a QueryPlan.
 """
 
 
-def build_prompt(
-    question: str,
-    metadata: dict
-) -> str:
-    """
-    Build dataset-aware prompt.
-    """
+def build_prompt(question: str,metadata: dict) -> str:
 
     crop_lines = []
 
@@ -82,9 +106,6 @@ def build_prompt(
     states_section = ", ".join(
         metadata["states"]
     )
-
-    print("min:",min(metadata['years']))
-    print("max:",max(metadata['years']))
 
     years_section = (
         f"{min(metadata['years'])}"

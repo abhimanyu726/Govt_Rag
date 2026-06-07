@@ -1,10 +1,7 @@
 from openai import OpenAI
 
 from src.models import QueryPlan
-from src.prompts import (
-    SYSTEM_PROMPT,
-    build_prompt
-)
+from src.prompts import SYSTEM_PROMPT, build_prompt
 from src.validator import QueryValidator
 
 
@@ -14,11 +11,7 @@ class QueryParser:
     structured QueryPlan using OpenAI.
     """
 
-    def __init__(
-        self,
-        api_key: str,
-        model: str = "gpt-4.1-mini"
-    ):
+    def __init__(self,api_key: str,model: str = "gpt-4.1-mini"):
 
         self.client = OpenAI(
             api_key=api_key
@@ -26,11 +19,7 @@ class QueryParser:
 
         self.model = model
 
-    def parse(
-        self,
-        question: str,
-        metadata: dict
-    ) -> QueryPlan:
+    def parse(self,question: str,metadata: dict) -> QueryPlan:
 
         prompt = build_prompt(
             question=question,
@@ -97,13 +86,7 @@ class QueryPlanner:
     Valid QueryPlan
     """
 
-    def __init__(
-        self,
-        metadata: dict,
-        schema_manager,
-        api_key: str,
-        model: str = "gpt-4.1-mini"
-    ):
+    def __init__(self,metadata: dict,schema_manager,api_key: str,model: str = "gpt-4.1-mini"):
 
         self.metadata = metadata
 
@@ -117,10 +100,7 @@ class QueryPlanner:
             schema_manager=schema_manager
         )
 
-    def create_plan(
-        self,
-        question: str
-    ) -> QueryPlan:
+    def create_plan(self,question: str) -> QueryPlan:
 
         if not question.strip():
 

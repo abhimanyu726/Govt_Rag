@@ -11,9 +11,7 @@ class AnswerGenerator:
     }
 
     @staticmethod
-    def format_number(
-        value
-    ):
+    def format_number(value):
 
         try:
 
@@ -25,10 +23,7 @@ class AnswerGenerator:
 
             return str(value)
 
-    def normalize_unit(
-        self,
-        unit
-    ):
+    def normalize_unit(self,unit):
 
         if not unit:
 
@@ -39,11 +34,7 @@ class AnswerGenerator:
             unit
         )
 
-    def aggregate(
-        self,
-        result,
-        unit
-    ):
+    def aggregate(self,result,unit):
 
         context = (
             result.query_context
@@ -94,11 +85,7 @@ class AnswerGenerator:
 
         return answer
 
-    def top_n(
-        self,
-        result,
-        unit
-    ):
+    def top_n(self,result,unit):
 
         df = result.result_data
 
@@ -128,16 +115,35 @@ class AnswerGenerator:
             result.metric_column
         )
 
-        answer = (
+        entity = leader[
+            group_column
+        ]
 
-            f"{leader[group_column]} "
+        if group_column == "Year":
 
-            f"had the highest "
+            answer = (
 
-            f"{crop.lower()} "
+                f"{int(entity)} "
 
-            f"{metric.lower()}"
-        )
+                f"had the highest "
+
+                f"{crop.lower()} "
+
+                f"{metric.lower()}"
+            )
+
+        else:
+
+            answer = (
+
+                f"{entity} "
+
+                f"had the highest "
+
+                f"{crop.lower()} "
+
+                f"{metric.lower()}"
+            )
 
         if year:
 
@@ -162,11 +168,7 @@ class AnswerGenerator:
 
         return answer
 
-    def trend(
-        self,
-        result,
-        unit
-    ):
+    def trend(self,result,unit):
 
         df = result.result_data
 
@@ -260,11 +262,7 @@ class AnswerGenerator:
 
         return answer
 
-    def compare(
-        self,
-        result,
-        unit
-    ):
+    def compare(self,result,unit):
 
         df = result.result_data
 
@@ -341,12 +339,7 @@ class AnswerGenerator:
 
         return answer
 
-    def generate(
-        self,
-        plan,
-        result,
-        unit
-    ):
+    def generate(self,plan,result,unit):
 
         operation_map = {
 

@@ -38,14 +38,12 @@ class QueryPlan(BaseModel):
 
     group_by: Literal[
         "State Name",
-        "Dist Name"
+        "Dist Name",
+        "Year"
     ] = "State Name"
 
 
 class ExecutionResult(BaseModel):
-    """
-    Output produced by QueryExecutor.
-    """
 
     result_data: Any
 
@@ -61,9 +59,6 @@ class ExecutionResult(BaseModel):
 
 
 class FinalResponse(BaseModel):
-    """
-    Final response returned to Streamlit UI.
-    """
 
     answer: str
 

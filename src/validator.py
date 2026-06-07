@@ -4,21 +4,13 @@ class QueryValidator:
     before execution.
     """
 
-    def __init__(
-        self,
-        metadata,
-        schema_manager
-    ):
+    def __init__(self,metadata,schema_manager):
 
         self.metadata = metadata
 
         self.schema = schema_manager
 
-    def validate(
-        self,
-        question,
-        plan
-    ):
+    def validate(self,question,plan):
         """
         Validate generated plan.
         """

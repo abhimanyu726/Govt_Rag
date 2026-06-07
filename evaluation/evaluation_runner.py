@@ -9,17 +9,11 @@ class EvaluationRunner:
     against the pipeline.
     """
 
-    def __init__(
-        self,
-        pipeline
-    ):
+ def __init__(self,pipeline):
 
         self.pipeline = pipeline
 
-    def run(
-        self,
-        question_file
-    ):
+ def run(self,question_file):
 
         with open(
             question_file,
@@ -81,11 +75,7 @@ class EvaluationRunner:
 
         return df
 
-    def save_report(
-        self,
-        dataframe,
-        output_file="evaluation_report.csv"
-    ):
+ def save_report(self,dataframe,output_file="evaluation_report.csv"):
 
         dataframe.to_csv(
             output_file,
@@ -94,10 +84,7 @@ class EvaluationRunner:
 
         return output_file
 
-    def summary(
-        self,
-        dataframe
-    ):
+ def summary(self,dataframe):
 
         total = len(
             dataframe

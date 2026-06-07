@@ -9,10 +9,7 @@ class ChartGenerator:
     Generates charts for query results.
     """
 
-    def __init__(
-        self,
-        output_dir="outputs/charts"
-    ):
+    def __init__(self,output_dir="outputs/charts"):
 
         self.output_dir = Path(
             output_dir
@@ -23,9 +20,7 @@ class ChartGenerator:
             exist_ok=True
         )
 
-    def create_chart_path(
-        self
-    ):
+    def create_chart_path(self):
 
         filename = (
             f"{uuid.uuid4()}.png"
@@ -36,13 +31,7 @@ class ChartGenerator:
             / filename
         )
 
-    def create_bar_chart(
-        self,
-        dataframe,
-        x_column,
-        y_column,
-        title
-    ):
+    def create_bar_chart(self,dataframe,x_column,y_column,title):
 
         chart_path = (
             self.create_chart_path()
@@ -85,13 +74,7 @@ class ChartGenerator:
             chart_path
         )
 
-    def create_line_chart(
-        self,
-        dataframe,
-        x_column,
-        y_column,
-        title
-    ):
+    def create_line_chart(self,dataframe,x_column,y_column,title):
 
         chart_path = (
             self.create_chart_path()
@@ -135,10 +118,7 @@ class ChartGenerator:
             chart_path
         )
 
-    def generate(
-        self,
-        execution_result
-    ):
+    def generate(self,execution_result):
 
         if (
             execution_result.chart_type

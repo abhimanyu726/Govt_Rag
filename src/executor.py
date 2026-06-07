@@ -1,9 +1,6 @@
 import pandas as pd
 
-from src.models import (
-    QueryPlan,
-    ExecutionResult
-)
+from src.models import QueryPlan, ExecutionResult
 
 
 class QueryExecutor:
@@ -12,20 +9,13 @@ class QueryExecutor:
     against the dataset.
     """
 
-    def __init__(
-        self,
-        dataframe: pd.DataFrame,
-        schema_manager
-    ):
+    def __init__(self,dataframe: pd.DataFrame,schema_manager):
 
         self.df = dataframe
 
         self.schema = schema_manager
 
-    def get_metric_column(
-        self,
-        plan: QueryPlan
-    ) -> str:
+    def get_metric_column(self,plan: QueryPlan) -> str:
 
         column = self.schema.get_column(
             plan.crop,
@@ -41,10 +31,7 @@ class QueryExecutor:
 
         return column
 
-    def build_context(
-        self,
-        plan: QueryPlan
-    ) -> dict:
+    def build_context(self,plan: QueryPlan) -> dict:
 
         return {
 
@@ -67,11 +54,7 @@ class QueryExecutor:
             plan.operation
         }
 
-    def apply_filters(
-        self,
-        dataframe: pd.DataFrame,
-        plan: QueryPlan
-    ) -> pd.DataFrame:
+    def apply_filters(self,dataframe: pd.DataFrame,plan: QueryPlan) -> pd.DataFrame:
 
         df = dataframe.copy()
 
@@ -104,10 +87,7 @@ class QueryExecutor:
 
         return df
 
-    def aggregate(
-        self,
-        plan: QueryPlan
-    ) -> ExecutionResult:
+    def aggregate(self,plan: QueryPlan) -> ExecutionResult:
 
         metric_column = (
             self.get_metric_column(
@@ -158,10 +138,7 @@ class QueryExecutor:
             self.build_context(plan)
         )
 
-    def top_n(
-        self,
-        plan: QueryPlan
-    ) -> ExecutionResult:
+    def top_n(self,plan: QueryPlan) -> ExecutionResult:
 
         metric_column = (
             self.get_metric_column(
@@ -229,10 +206,7 @@ class QueryExecutor:
             self.build_context(plan)
         )
 
-    def top_1(
-        self,
-        plan: QueryPlan
-    ) -> ExecutionResult:
+    def top_1(self,plan: QueryPlan) -> ExecutionResult:
 
         plan.top_n = 1
 
@@ -240,10 +214,7 @@ class QueryExecutor:
             plan
         )
 
-    def trend(
-        self,
-        plan: QueryPlan
-    ) -> ExecutionResult:
+    def trend(self,plan: QueryPlan) -> ExecutionResult:
 
         metric_column = (
             self.get_metric_column(
@@ -300,10 +271,7 @@ class QueryExecutor:
             self.build_context(plan)
         )
 
-    def compare(
-        self,
-        plan: QueryPlan
-    ) -> ExecutionResult:
+    def compare(self,plan: QueryPlan) -> ExecutionResult:
 
         metric_column = (
             self.get_metric_column(
@@ -386,10 +354,7 @@ class QueryExecutor:
             self.build_context(plan)
         )
 
-    def execute(
-        self,
-        plan: QueryPlan
-    ) -> ExecutionResult:
+    def execute(self,plan: QueryPlan) -> ExecutionResult:
 
         operation_map = {
 
